@@ -1,4 +1,4 @@
-import logging
+import logging as log
 import sys
 import os
 
@@ -8,21 +8,21 @@ def setup_logger():
     """
 
     # WARNING and lower level logs are output to stdout
-    stdout_handler = logging.StreamHandler(sys.stdout)
-    stdout_handler.setLevel(logging.NOTSET)
-    stdout_handler.addFilter(lambda record: record.levelno <= logging.WARNING)
+    stdout_handler = log.StreamHandler(sys.stdout)
+    stdout_handler.setLevel(log.NOTSET)
+    stdout_handler.addFilter(lambda record: record.levelno <= log.WARNING)
 
     # ERROR and CRITICAL level logs are output to stderr
-    stderr_handler = logging.StreamHandler(sys.stderr)
-    stderr_handler.setLevel(logging.ERROR)
+    stderr_handler = log.StreamHandler(sys.stderr)
+    stderr_handler.setLevel(log.ERROR)
 
-    logger = logging.getLogger('Python DevContainers')
+    logger = log.getLogger('Python DevContainers')
 
     # The log output level can be controlled by environment variables. The default and invalid value is INFO.
     log_level_str = os.getenv("LOG_LEVEL", "INFO")
-    log_level = getattr(logging, log_level_str.upper(), None)
+    log_level = getattr(log, log_level_str.upper(), None)
     if not isinstance(log_level, int):
-        log_level = logging.INFO
+        log_level = log.INFO
     logger.setLevel(log_level)
     logger.addHandler(stdout_handler)
     logger.addHandler(stderr_handler)
